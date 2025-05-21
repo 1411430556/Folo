@@ -4,7 +4,7 @@ import { getIsZenMode, getUISettings, setUISetting, setZenMode } from "~/atoms/s
 import { setTimelineColumnShow } from "~/atoms/sidebar"
 
 import { useRegisterCommandEffect } from "../hooks/use-register-command"
-import type { Command } from "../types"
+import type { Command, CommandCategory } from "../types"
 import { COMMAND_ID } from "./id"
 
 declare module "@follow/utils/event-bus" {
@@ -15,11 +15,13 @@ declare module "@follow/utils/event-bus" {
   }
 }
 
+const category: CommandCategory = "Layout"
 export const useRegisterLayoutCommands = () => {
   useRegisterCommandEffect([
     {
       id: COMMAND_ID.layout.toggleTimelineColumn,
       label: "Toggle timeline column",
+      category,
       run: () => {
         setTimelineColumnShow((show) => !show)
       },
@@ -27,6 +29,7 @@ export const useRegisterLayoutCommands = () => {
     {
       id: COMMAND_ID.layout.focusToTimeline,
       label: "Focus to timeline",
+      category,
       run: () => {
         EventBus.dispatch(COMMAND_ID.layout.focusToTimeline)
       },
@@ -34,6 +37,7 @@ export const useRegisterLayoutCommands = () => {
     {
       id: COMMAND_ID.layout.focusToSubscription,
       label: "Focus to subscription",
+      category,
       run: () => {
         EventBus.dispatch(COMMAND_ID.layout.focusToSubscription)
       },
@@ -41,6 +45,7 @@ export const useRegisterLayoutCommands = () => {
     {
       id: COMMAND_ID.layout.focusToEntryRender,
       label: "Enter Selected Entry",
+      category,
       run: () => {
         EventBus.dispatch(COMMAND_ID.layout.focusToEntryRender)
       },
@@ -48,6 +53,7 @@ export const useRegisterLayoutCommands = () => {
     {
       id: COMMAND_ID.layout.toggleWideMode,
       label: "Toggle wide mode",
+      category,
       run: () => {
         const { wideMode } = getUISettings()
         setUISetting("wideMode", !wideMode)
@@ -56,6 +62,7 @@ export const useRegisterLayoutCommands = () => {
     {
       id: COMMAND_ID.layout.toggleZenMode,
       label: "Toggle zen mode",
+      category,
       run: () => {
         setZenMode(!getIsZenMode())
       },
